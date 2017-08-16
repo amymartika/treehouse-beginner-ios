@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios'>
+    <pages>
+        <page name='Types'/>
+        <page name='Variables and Constants'/>
+        <page name='Operators'/>
+        <page name='Collections'/>
+        <page name='Control Flow'/>
+        <page name='Swift Functions'/>
+        <page name='Object-Oriented Swift'/>
+        <page name='Value vs. Reference'/>
+        <page name='Enumerations'/>
+        <page name='Optionals'/>
+        <page name='Optional Chaining'/>
+        <page name='Pattern Matching'/>
+        <page name='Protocols'/>
+    </pages>
+</playground>
