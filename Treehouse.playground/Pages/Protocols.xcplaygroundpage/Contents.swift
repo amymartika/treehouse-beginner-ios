@@ -1,4 +1,17 @@
 
+/*
+ ---------
+ Protocols
+ ---------
+ 
+ - When we have a set of closely related classes that implement
+ methods that define similar behavior but end up having different
+ implementations, protocols lead to better code than inheritance.
+ - Protocols encapsulate common behavior without resorting
+ to inheritance.
+ - Protocols can be used wherever a type is expected.
+*/
+
 protocol FullNameable {
     var fullName: String { get }
 }
@@ -26,13 +39,10 @@ friend.fullName
  ------------------------
  Why Protocols Are Useful
  ------------------------
- 
+
  - An example of setting up payroll without protocols (below).
  - Because there are no errors raised in the code, we're
  opening the door for lots of bugs.
- - When we have a set of closely related classes that implement
- methods that define similar behavior but end up having different
- implementations, protocols lead to better code than inheritance.
  
  import Foundation
  
@@ -243,6 +253,66 @@ var d6 = Dice(sides: 6, generator: LinearCongruentialGenerator())
 d6.roll()
 
 /*
+ --------------------
+ Protocol Inheritance
+ --------------------
+ 
+ * Inheritance vs. Composition *
+ - When we have an "is-a" relationship, inheritance is best suited
+ as our design pattern. (A class wants to model the exact same
+ behavior and attributes of another class.)
+ - When we have a "has-a" relationship, we use composition. Neither
+ a bird nor a plane is a sub-class of the other, but they have
+ flying in common. Then we may want a protocol for flying.
+ 
+ * Benefits of Inheritance *
+ - Unlike classes, which can only inherit from a single base class,
+ protocols can inherit from multiple protocols.
+ - We can build up protocools to set up a larger set of requirements.
+ 
+ * Three Types of Swift Standard Library Protocols *
+ - Can do: used to represent behavior (ex: Equatable)
+ - Is a: the protocol models a concrete type
+ - Can be: model behavior where one type can be converted to
+ another type (ex: ExpressibleByFloatLiteral, ExpressibleByArrayLiteral,
+ CustomStringConvertible)
+*/
+
+protocol Printable {
+    func description() -> String
+}
+
+protocol PrettyPrintable: Printable { // Inheriting from Printable
+    func prettyDescription() -> String
+}
+
+struct AnotherUser: PrettyPrintable, Equatable { // Equatable is from Swift's Standard Library
+    let name: String
+    let age: Int
+    let address: String
+    
+    func description() -> String {
+        return "\(name), \(age), \(address)"
+    }
+    
+    func prettyDescription() -> String {
+        return "name: \(name)\nage: \(age)\naddress: \(address)" // \n marks new line
+    }
+    
+    static func ==(lhs: AnotherUser, rhs: AnotherUser) -> Bool {
+        return lhs.name == rhs.name && lhs.age == rhs.age && lhs.address == rhs.address
+    }
+}
+
+let anotherUser = AnotherUser(name: "Pasan", age: 28, address: "someAddress")
+
+anotherUser.description()
+print(anotherUser.prettyDescription())
+
+let aThirdUser = AnotherUser(name: "Pasan", age: 28, address: "someAddress")
+anotherUser == aThirdUser // Equatable protocol in action
+
+/*
  --------------
  Code Challenge
  --------------
@@ -293,6 +363,27 @@ class WifiLamp: ColorSwitchable {
         self.state = .on
         self.color = .rgb(0,0,0,0)
     }
+}
+
+// End of challenge
+
+/*
+ --------------
+ Code Challenge
+ --------------
+*/
+
+protocol Animal {
+    var numberOfLegs: Int { get }
+}
+
+protocol Pet: Animal {
+    var cuddlyName: String { get }
+}
+
+struct Dog: Pet {
+    var numberOfLegs = 4
+    var cuddlyName = "Mr. Fluffy" // All code challenges should be like this
 }
 
 // End of challenge

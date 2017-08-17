@@ -14,5 +14,6 @@
         <page name='Optional Chaining'/>
         <page name='Pattern Matching'/>
         <page name='Protocols'/>
+        <page name='Protocol-Oriented Programming'/>
     </pages>
 </playground>
