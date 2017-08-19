@@ -98,6 +98,22 @@ do {
 }
 
 /*
+ ----------------
+ Defer Statements
+ ----------------
+ 
+ - Executes code within the statement when the 
+ program execution leaves the current scope.
+ - Executed when the current scope is executed,
+ not when it is written.
+ - We can add a call to close the file within a
+ defer statement as soon as we open it to guarantee
+ that we don't forget to close off the file.
+ - YOu can add multiple defer statements in a single
+ funciton, and they're executed in reverse order.
+*/
+
+/*
  --------------
  Code Challenge
  --------------
@@ -155,8 +171,10 @@ let parser = Parser(data: data)
 
 do {
     try Parser(data: data).parse()
-} catch {
-    print("Error!")
+} catch ParserError.emptyDictionary(let description) {
+    print("No data entered!")
+} catch ParserError.invalidKey(let description) {
+    print("Invalid data!")
 }
 
 // End of challenge
