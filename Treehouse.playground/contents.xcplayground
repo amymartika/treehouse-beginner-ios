@@ -16,5 +16,6 @@
         <page name='14 - Protocols'/>
         <page name='15 - Protocol-Oriented Programming'/>
         <page name='16 - Error Handling'/>
+        <page name='17 - Type Casting'/>
     </pages>
 </playground>
